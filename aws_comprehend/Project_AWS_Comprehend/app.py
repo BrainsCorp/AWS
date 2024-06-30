@@ -26,7 +26,7 @@ def analyze_sentiment():
         response = comprehend_client.detect_entity(Text=text,
                                                    LanguageCode='en')
 
-    return render_template("index.html", result=f"{response["Entities"]}")
+    return render_template("index.html", result=f"{response['Entities']}")
 
 #Insert the line below to to run on Cloud9
 #app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', 8080)))
