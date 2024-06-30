@@ -19,12 +19,12 @@ def index():
 def analyze_sentiment():
     if request.method=='POST':
         input = request.form["user_input"]
-        comp_detect = ComprehendDetect(boto3.client("comprehend"))
-        lang = comp_detect.detect_languages(input)
-        language_code = lang[0]['LanguageCode']
+        # comp_detect = ComprehendDetect(boto3.client("comprehend"))
+        # lang = comp_detect.detect_languages(input)
+        # language_code = lang[0]['LanguageCode']
 
         response = comprehend_client.detect_entity(Text=text,
-                                                   LanguageCode=language_code)
+                                                   LanguageCode='en')
 
     return render_template("index.html", result=f"{response["Entities"]}")
 
