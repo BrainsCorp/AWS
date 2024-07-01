@@ -38,13 +38,13 @@
     </style>
 </head>
 <body>
-    <form id="f1" action="#" method="post">
+    <form id="f1" action="/detect_entity" method="POST">
         <label>
             <h2>Name Entity Recognition</h2>
         </label>
         <h3>Your Text:</h3>
         <label>
-            <textarea type="text" name="user_input" placeholder="Type or Copy text here"></textarea>
+            <textarea name="user_input" placeholder="Type or Copy text here">{{ text }}</textarea>
         </label>
         <h3>Result:</h3>
         <label>
@@ -54,4 +54,5 @@
         <button type="reset">Reset</button>
     </form>
 </body>
+
 </html>
