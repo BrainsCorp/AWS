@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from config import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION
 import os
 import boto3
+from aws_comprehend_detect import ComprehendDetect
 
 app = Flask(__name__)
 comprehend_client = boto3.client(
@@ -19,9 +20,10 @@ def index():
 def analyze_sentiment():
     if request.method=='POST':
         input = request.form["user_input"]
-        # comp_detect = ComprehendDetect(boto3.client("comprehend"))
-        # lang = comp_detect.detect_languages(input)
-        # language_code = lang[0]['LanguageCode']
+        
+        comp_detect = ComprehendDetect(comprehend_client)
+        lang = comp_detect.detect_languages(input)
+        language_code = lang[0]['LanguageCode']
 
         response = comprehend_client.detect_entities(Text=input,
                                                    LanguageCode='en')
