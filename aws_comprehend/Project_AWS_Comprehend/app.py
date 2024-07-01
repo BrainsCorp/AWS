@@ -23,7 +23,7 @@ def analyze_sentiment():
         # lang = comp_detect.detect_languages(input)
         # language_code = lang[0]['LanguageCode']
 
-        response = comprehend_client.detect_entity(Text=text,
+        response = comprehend_client.detect_entities(Text=text,
                                                    LanguageCode='en')
 
     return render_template("index.html", result=f"{response['Entities']}")
