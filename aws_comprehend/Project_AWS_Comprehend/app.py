@@ -26,7 +26,7 @@ def analyze_sentiment():
         language_code = lang[0]['LanguageCode']
 
         response = comprehend_client.detect_entities(Text=input,
-                                                   LanguageCode='en')
+                                                   LanguageCode=language_code)
 
     return render_template("index.html", result=f"{response['Entities']}")
 
