@@ -12,20 +12,20 @@ comprehend_client = boto3.client(
 
 
 def format_entities(entities_string):
+    
+    entities = response['Entities']
     formatted_text = ""
     count = 1
+    
+  # Define the regular expression pattern (adjust based on your entity data format)
+  formatted_text = f"Detect Entities: {len(entities)}"
+  for entity in entities:
+      formatted_text += f"\n\n{count}: {entity['Text']}\n"
+      for e in entity:
+        formatted_text += f"{e}: {entity[e]}\n"
+      count += 1
 
-    # Define the regular expression pattern (adjust based on your entity data format)
-    entities_string=entities_string.replace("'", "\"")
-    entities = json.loads(entities_string)
-    formatted_text = f"Detect Entities: {len(entities)}"
-    for entity in entities:
-        formatted_text += f"\n\n{count}: {entity['Text']}\n"
-        for e in entity:
-            formatted_text += f"{e}: {entity[e]}\n"
-        count += 1
-
-    return formatted_text
+  return formatted_text
 
 @app.route('/')
 def index():
