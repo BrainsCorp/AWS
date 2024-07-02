@@ -11,11 +11,13 @@ comprehend_client = boto3.client(
 )
 
 
-def format_entities(response: dict):
+def format_entities(entities_string):
     formatted_text = ""
     count = 1
 
-    entities = response['Entities']
+    # Define the regular expression pattern (adjust based on your entity data format)
+    entities_string=entities_string.replace("'", "\"")
+    entities = json.loads(entities_string)
     formatted_text = f"Detect Entities: {len(entities)}"
     for entity in entities:
         formatted_text += f"\n\n{count}: {entity['Text']}\n"
@@ -39,11 +41,13 @@ def analyze_sentiment():
         lang = comp_detect.detect_languages(input)
         language_code = lang[0]['LanguageCode']
 
-        response = comprehend_client.detect_entities(Text=input,
+        entities = comprehend_client.detect_entities(Text=input,
+                                                   LanguageCode=language_code)
+        pos = comprehend_client.detect_syntax(Text=input,
                                                    LanguageCode=language_code)
 
         #t = "[{'Score': 0.9994252920150757, 'Type': 'PERSON', 'Text': 'Barack Obama', 'BeginOffset': 0, 'EndOffset': 12}, {'Score': 0.8225329518318176, 'Type': 'QUANTITY', 'Text': '44th president', 'BeginOffset': 18, 'EndOffset': 32}]"
-        return render_template("index.html", text=input, result=format_entities(response))
+        return render_template("index.html", text=input, NER=format_entities(entities), POS=pos)
     
 #Insert the line below to to run on Cloud9
 #app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', 8080)))
