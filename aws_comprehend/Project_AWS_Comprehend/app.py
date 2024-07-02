@@ -26,6 +26,20 @@ def format_entities(response):
     
     return formatted_text
 
+def format_pos(response: dict):
+  entities = response['SyntaxTokens']
+  formatted_text = ""
+  count = 1
+
+  # Define the regular expression pattern (adjust based on your entity data format)
+  formatted_text = f"Detect Entities: {len(entities)}"
+  for entity in entities:
+      formatted_text += f"\n\n{count}: {entity['Text']}\n"
+      formatted_text += f"{entity['PartOfSpeech']}\n"
+      count += 1
+
+  return formatted_text
+
 @app.route('/')
 def index():
     return render_template("index.html")
@@ -46,7 +60,7 @@ def analyze_sentiment():
                                                    LanguageCode=language_code)
 
         #t = "[{'Score': 0.9994252920150757, 'Type': 'PERSON', 'Text': 'Barack Obama', 'BeginOffset': 0, 'EndOffset': 12}, {'Score': 0.8225329518318176, 'Type': 'QUANTITY', 'Text': '44th president', 'BeginOffset': 18, 'EndOffset': 32}]"
-        return render_template("index.html", text=input, NER=format_entities(entities), POS=pos)
+        return render_template("index.html", text=input, NER=format_entities(entities), POS=format_pos(pos))
     
 #Insert the line below to to run on Cloud9
 #app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', 8080)))
