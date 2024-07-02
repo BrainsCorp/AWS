@@ -11,7 +11,7 @@ comprehend_client = boto3.client(
 )
 
 
-def format_entities(entities_string):
+def format_entities(response):
     entities = response['Entities']
     formatted_text = ""
     count = 1
