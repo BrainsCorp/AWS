@@ -13,6 +13,7 @@
             flex-direction: column;
             gap: 10px;
         }
+
         label {
             display: flex;
             align-items: center;
@@ -28,6 +29,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+
         button {
             padding: 10px 20px;
             border: 1px solid #ccc;
@@ -46,12 +48,21 @@
         <label>
             <textarea name="user_input" placeholder="Type or Copy text here">{{ text }}</textarea>
         </label>
-        <h3>Result:</h3>
-        <label>
-            <textarea name="result">{{ result }}</textarea>
-        </label>
+        <div id="result">
+
+            <h3>NER:</h3>
+            <label>  
+                <textarea name="NER">{{ NER }}</textarea>
+            </label>
+            <h3>POS:</h3>
+            <label>
+                <textarea name="POS">{{ POS }}</textarea>
+            </label>
+            
+        </div>
         <button type="submit">Submit</button>
         <button type="reset">Reset</button>
+        
     </form>
 </body>
 
